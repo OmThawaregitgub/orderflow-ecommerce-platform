@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="OrderFlow operations workspace for order reliability and inventory visibility.">
+  <title>{{ page_title or 'Workspace' }} · OrderFlow</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/app.css">
+  <script defer src="/static/js/app.js"></script>
+</head>
+<body class="app-body">
+<div class="app-shell">
+  <aside class="sidebar" id="sidebar">
+    <a class="brand" href="/dashboard" aria-label="OrderFlow home">
+      <span class="brand-mark"><svg viewBox="0 0 40 40" aria-hidden="true"><rect x="2" y="2" width="36" height="36" rx="12" fill="currentColor" opacity=".12"/><path d="M11 13.5h11.5a6.5 6.5 0 0 1 0 13H18M29 26.5H17.5a6.5 6.5 0 0 1 0-13H22" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></span>
+      <span class="brand-copy"><strong>orderflow<span>.</span></strong><small>OPERATIONS CLOUD</small></span>
+    </a>
+    <div class="side-caption">WORKSPACE</div>
+    <nav class="side-nav" aria-label="Main navigation">
+      <a class="nav-link {% if active_nav == 'dashboard' %}active{% endif %}" href="/dashboard"><span class="nav-icon">▦</span><span>Overview</span><span class="nav-arrow">›</span></a>
+      <a class="nav-link {% if active_nav == 'orders' %}active{% endif %}" href="/orders"><span class="nav-icon">↗</span><span>Orders</span><span class="nav-count">{{ metrics.pending_orders if metrics is defined else '' }}</span></a>
+      <a class="nav-link {% if active_nav == 'products' %}active{% endif %}" href="/products"><span class="nav-icon">▤</span><span>Inventory</span></a>
+    </nav>
+    <div class="side-caption side-caption-gap">SYSTEM</div>
+    <div class="system-card"><span class="system-dot"></span><div><strong>Operations console ready</strong><small>API and database connected</small></div></div>
+    <div class="sidebar-spacer"></div>
+    <div class="side-help"><div class="help-icon">?</div><div><strong>Need a hand?</strong><small>Read the project guide</small><a href="/api/docs" target="_blank" rel="noreferrer">Explore API docs <span>↗</span></a></div></div>
+    <div class="sidebar-footer"><span class="footer-avatar">OF</span><div class="footer-profile"><strong>{{ user.email if user else 'Operations' }}</strong><small>{{ user.role|title if user else 'Workspace' }}</small></div><form action="/logout" method="post"><input type="hidden" name="csrf_token" value="{{ csrf_token }}"><button class="icon-button logout-button" type="submit" title="Sign out" aria-label="Sign out">⇥</button></form></div>
+  </aside>
+  <main class="main-panel">
+    <header class="topbar">
+      <div class="breadcrumbs"><button class="mobile-menu icon-button" id="mobileMenu" aria-label="Toggle navigation">☰</button><span>Workspace</span><span class="crumb-sep">/</span><strong>{{ page_title or 'Overview' }}</strong></div>
+      <div class="topbar-actions"><span class="environment-pill"><span class="system-dot"></span> Live workspace</span><span class="topbar-divider"></span><div class="topbar-date">{{ (today_label if today_label is defined else '') }}</div><span class="top-avatar">{{ user.email[0]|upper if user else 'O' }}</span></div>
+    </header>
+    <section class="page-content">
+      {% if flash %}<div class="flash flash-{{ flash.kind }}" role="status"><span>{{ '✓' if flash.kind == 'success' else '!' }}</span>{{ flash.message }}<button type="button" class="flash-close" aria-label="Dismiss notification">×</button></div>{% endif %}
+      {% block content %}{% endblock %}
+      <footer class="page-footer"><span>© {{ now_year if now_year is defined else '2026' }} OrderFlow</span><span>Built for reliable operations <i class="footer-heart">✦</i></span><span>v1.0.0</span></footer>
+    </section>
+  </main>
+</div>
+</body>
+</html>

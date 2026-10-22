@@ -1,0 +1,13 @@
+[tool.pytest.ini_options]
+addopts = "-ra"
+testpaths = ["tests"]
+pythonpath = ["."]
+
+[tool.coverage.run]
+branch = true
+source = ["app"]
+omit = ["app/seed.py", "app/worker.py"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true

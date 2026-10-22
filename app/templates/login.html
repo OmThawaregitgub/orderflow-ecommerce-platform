@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign in · OrderFlow</title><link rel="stylesheet" href="/static/css/app.css"><script defer src="/static/js/app.js"></script>
+</head>
+<body class="login-body">
+  <div class="login-background-orb orb-one"></div><div class="login-background-orb orb-two"></div>
+  <main class="login-layout">
+    <section class="login-story">
+      <a class="brand login-brand" href="/login"><span class="brand-mark"><svg viewBox="0 0 40 40" aria-hidden="true"><rect x="2" y="2" width="36" height="36" rx="12" fill="currentColor" opacity=".12"/><path d="M11 13.5h11.5a6.5 6.5 0 0 1 0 13H18M29 26.5H17.5a6.5 6.5 0 0 1 0-13H22" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></span><span class="brand-copy"><strong>orderflow<span>.</span></strong><small>OPERATIONS CLOUD</small></span></a>
+      <div class="story-copy"><span class="eyebrow"><span class="eyebrow-dot"></span> THE OPERATIONS WORKSPACE</span><h1>Every order.<br>In perfect <span>flow.</span></h1><p>One place to keep orders moving, inventory accurate, and your operation one step ahead.</p>
+        <div class="story-feature"><span class="feature-icon">↗</span><div><strong>Order visibility, end to end</strong><small>Follow every order from creation to fulfillment.</small></div></div>
+        <div class="story-feature"><span class="feature-icon">▤</span><div><strong>Inventory you can trust</strong><small>Atomic stock reservations help prevent overselling.</small></div></div>
+        <div class="story-feature"><span class="feature-icon">⌁</span><div><strong>Built for reliability</strong><small>Idempotency, background processing, and clear audit trails.</small></div></div>
+      </div>
+      <div class="story-footer"><span>ENGINEERED FOR THE DETAILS</span><span>PYTHON · FASTAPI · POSTGRESQL</span></div>
+    </section>
+    <section class="login-panel-wrap"><div class="login-panel"><div class="login-panel-heading"><div class="login-mini-mark">↗</div><span class="eyebrow">WELCOME BACK</span><h2>Sign in to OrderFlow</h2><p>Enter your workspace credentials to continue.</p></div>
+      {% if error %}<div class="flash flash-error login-error" role="alert"><span>!</span>{{ error }}</div>{% endif %}
+      <form action="/login" method="post" class="login-form">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+        <label for="email">Work email</label><div class="input-icon-wrap"><span>✉</span><input id="email" name="email" type="email" autocomplete="username" placeholder="you@company.com" required maxlength="320" value="{{ email or '' }}"></div>
+        <div class="password-label-row"><label for="password">Password</label><span class="form-hint">Protected session</span></div><div class="input-icon-wrap"><span>♙</span><input id="password" name="password" type="password" autocomplete="current-password" placeholder="Enter your password" required><button type="button" id="togglePassword" class="show-password">Show</button></div>
+        <button class="button button-primary button-full login-submit" type="submit">Sign in to workspace <span>→</span></button>
+      </form>
+      <div class="login-secure"><span>♧</span> Your session is protected with a secure, signed cookie.</div>
+      <div class="login-bottom"><span>Need access?</span><span>Contact your workspace administrator.</span></div>
+    </div><div class="login-legal">OrderFlow · Built for reliable commerce operations</div></section>
+  </main>
+</body></html>
